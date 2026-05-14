@@ -36,19 +36,20 @@ export default function () {
                     phone: '',
                     message: ''
                 })
+                getAllEnquiry()
             })
     }
 
     let getAllEnquiry = () => {
         axios.get('http://localhost:8020/api/website/enquiry/view')
-            .then((res) => {
-                return res.data
-            })
-            .then((finalData) => {
-                if (finalData.status) {
-                    setEnquiryList(finalData.enquiryList)
-                }
-            })
+        .then((res) => {
+            return res.data
+        })
+        .then((finalData) => {
+            if (finalData.status) {
+                setEnquiryList(finalData.enquiryList)
+            }
+        })
     }
 
     let getValue = (e) => {
@@ -95,7 +96,7 @@ export default function () {
                     </form>
                 </div>
 
-                <EnquiryList data={enquiryList} />
+                <EnquiryList data={enquiryList} getAllEnquiry={getAllEnquiry}/>
 
             </div>
         </div>

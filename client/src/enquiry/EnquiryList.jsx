@@ -1,9 +1,20 @@
 import React from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
 
-export default function EnquiryList({ data }) {
+export default function EnquiryList({ data, getAllEnquiry }) {
+    let deleteRow=(delid)=>{
+        axios.delete(`http://localhost:8020/api/website/enquiry/delete/${delid}`)
+        .then((res)=>{
+            toast.success("Enquiry Deleted Successfully")
+            getAllEnquiry()
+        })
+    }
+
     return (
         <div className='bg-gray-300 p-4'>
+                <ToastContainer />
             <h2 className='text-[20px] font-bold mb-4'>Enquiry List</h2>
             <div className="overflow-x-auto">
                 <Table>
@@ -25,17 +36,17 @@ export default function EnquiryList({ data }) {
 
                     <TableBody className="divide-y">
                         {
-                            data.length >= 1 ?
-                                data.map((item, index) => {
+                            data.length>= 1 ?
+                                data.map((item,index) => {
                                     return (
                                         <tr key={index} className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                                            <TableCell>(index+1)</TableCell>
-                                            <TableCell>(item.name)</TableCell>
-                                            <TableCell>(item.email)</TableCell>
-                                            <TableCell>(item.phone)</TableCell>
-                                            <TableCell>(item.message)</TableCell>
+                                            <TableCell>{index+1}</TableCell>
+                                            <TableCell>{item.name}</TableCell>
+                                            <TableCell>{item.email}</TableCell>
+                                            <TableCell>{item.phone}</TableCell>
+                                            <TableCell>{item.message}</TableCell>
                                             <TableCell>
-                                                <button className='bg-red-500 text-white px-4 py-1 rounded-md'>Delete</button>
+                                                <button onClick={()=>deleteRow(item._id)} className='bg-red-500 text-white px-4 py-1 rounded-md'>Delete</button>
                                             </TableCell>
                                             <TableCell>
                                                 <button className='bg-blue-500 text-white px-4 py-1 rounded-md'>Edit</button>
