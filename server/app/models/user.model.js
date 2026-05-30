@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
-let enquirySchema = new Schema({
+
+let userSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -10,14 +11,15 @@ let enquirySchema = new Schema({
         required: true,
         unique: true
     },
-    phone: {
+    password: {
         type: String,
         required: true
     },
-    message: {
-        type: String,
-        required: true
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
-let enquiryModel = mongoose.model('Enquiry', enquirySchema);
-module.exports = enquiryModel;
+
+let userModel = mongoose.model('User', userSchema);
+module.exports = userModel;

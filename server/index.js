@@ -1,14 +1,16 @@
 let express = require('express');
 let mongoose = require('mongoose');
 let cors = require('cors');
-const enquiryRouter = require('./app/routes/web/enquiryRoutes');
+const todoRouter = require('./app/routes/web/todoRoutes');
+const authRouter = require('./app/routes/admin/authRoutes');
 require('dotenv').config();
 let app = express();
 app.use(cors());
 app.use(express.json());
 
 // Import Routes
-app.use('/api/website/enquiry', enquiryRouter);
+app.use('/api/todos', todoRouter);
+app.use('/api/auth', authRouter);
 
 
 // Connect to MongoDB
